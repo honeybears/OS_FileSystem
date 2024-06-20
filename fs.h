@@ -18,8 +18,8 @@
 
 
 #define FILESYS_INFO_BLOCK    (0) /* file system info block no. */
-#define INODE_BYTEMAP_BLOCK_NUM  (1) /* inode bytemap block no. */
-#define BLOCK_BYTEMAP_BLOCK_NUM  (2) /* block bytemap block no. */
+#define INODE_BYTEMAP_BLOCK_NUM  (1) /* inode bitmap block no. */
+#define BLOCK_BYTEMAP_BLOCK_NUM  (2) /* block bitmap block no. */
 #define INODELIST_BLOCK_FIRST   (3) /* the first block no. of inode list */
 #define INODELIST_BLOCKS        (4) /* the number of blocks in inode list */
 
@@ -56,11 +56,12 @@ typedef struct _FileSysInfo {
     int numAllocBlocks;      // 파일 또는 디렉토리에 할당된 블록 개수
     int numFreeBlocks;       // 할당되지 않은 블록 개수
     int numAllocInodes;       // 할당된 inode 개수
-    int blockBytemapBlock;     // block bytemap의 시작 블록 번호
-    int inodeBytemapBlock;     // inode bytemap의 시작 블록 번호
+    int blockBitmapBlock;     // block bitmap의 시작 블록 번호
+    int inodeBitmapBlock;     // inode bitmap의 시작 블록 번호
     int inodeListBlock;     // inode list의 시작 블록 번호
     int dataRegionBlock;        // data region의 시작 블록 번호 (수정)
 } FileSysInfo;
+
 
 typedef struct _Inode {
     int allocBlocks;
@@ -108,10 +109,10 @@ extern void FileSysInit(void);
 
 /*  File system internal functions */
 
-extern void SetInodeBytemap(int inodeno);
-extern void ResetInodeBytemap(int inodeno);
-extern void SetBlockBytemap(int blkno);
-extern void ResetBlockBytemap(int blkno);
+extern void SetInodeBitmap(int inodeno);
+extern void ResetInodeBitmap(int inodeno);
+extern void SetBlockBitmap(int blkno);
+extern void ResetBlockBitmap(int blkno);
 extern void PutInode(int inodeno, Inode* pInode);
 extern void GetInode(int inodeno, Inode* pInode);
 extern int GetFreeInodeNum(void);
