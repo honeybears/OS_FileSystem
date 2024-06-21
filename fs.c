@@ -352,7 +352,7 @@ void    CreateFileSystem(void){
     pInode->allocBlocks = 1;
     PutInode(inode_num,pInode);
 
-        SetInodeBitmap(inode_num);
+    SetInodeBitmap(inode_num);
 
 }
 
