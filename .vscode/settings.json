@@ -2,5 +2,13 @@
     "files.associations": {
         "fs.h": "c",
         "disk.h": "c"
-    }
+    },
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/**",
+        "/usr/include" // POSIX 헤더 파일 경로
+    ],
+    "C_Cpp.default.defines": [
+        "_POSIX_C_SOURCE=200809L" // POSIX 표준 버전 정의
+    ]
 }

@@ -6,34 +6,27 @@
 #include <string.h>
 int main(){
     
+   
     CreateFileSystem();
-    int freeNode = GetFreeInodeNum();
-    printf("%d",freeNode);
-    printf("Hello OS World\n");
-    char *s = malloc(BLOCK_SIZE);
-    printf("%d\n",sizeof(s));
-    memcpy(s,"101111001011",BLOCK_SIZE);
+    // for(int i = 0; i< 10; i++){
+    //     int a = GetFreeInodeNum();
+    //     int b = GetFreeBlockNum();
+    //     printf("freeInode : %d ", a);
+    //     printf("freeBlock : %d\n", b);
+    //     SetBlockBitmap(b);
+    //     SetInodeBitmap(a);
 
-    printf("%s\n",s);
-    ((char*)s)[1] |= 1;
-    printf("%s\n",s);
-
-    char* initBuf = malloc(BLOCK_SIZE);
-    memset(initBuf,'0',BLOCK_SIZE);
-
-    printf("%s\n", initBuf);
-    BufWrite(0,initBuf);
-
-    char* pbuf = malloc(BLOCK_SIZE);
-    BufRead(0,pbuf);
-    printf("%s\n",pbuf);
-    char z[] = "/tmp/a/b/c.txt";
-    char* tok = strtok(z,"/");
-    while(tok != NULL){
-        printf("%s\n",tok);
-        tok = strtok(NULL,"/");
-    }
-    
+    // }
+    MakeDir("/b");
+    CreateFile("/b/c.txt");
+    FileSysInfo* fss = malloc(sizeof(FileSysInfo));
+    BufRead(0,fss);
+    printf("%d\n",fss->numAllocBlocks);
+    free(fss);
+    Inode* pInode = (Inode*)malloc(sizeof(Inode));
+    GetInode(2,pInode);
+    printf("%d\n",pInode->type);
+    BufSync();
     DevCloseDisk();
     return 0;
 }
